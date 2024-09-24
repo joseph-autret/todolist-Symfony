@@ -1,0 +1,31 @@
+{# templates/task/index.html.twig #}
+
+<h1>Todo List</h1>
+
+<ul>
+    {% for task in tasks %}
+        <li>
+            {{ task.titre }}
+            {{ task.description }} - 
+            {% if task.fini %}
+                <span>Travail terminé</span>
+            {% else %}
+                <span>En attente</span>
+            {% endif %}
+            <form method="post" action="{{ path('terminer', {'id': task.id}) }}">
+                <button type="submit">Terminer</button>
+            </form>
+            <form method="post" action="{{ path('task_delete', {'id': task.id}) }}">
+                <button type="submit">Supprimer</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+<form action="{{ path('task_create') }}" method="POST">
+    <input type="text" name="titre" placeholder="Titre" required>
+    <textarea name="description" placeholder="Description" required></textarea>
+    <button type="submit">Créer une tâche</button>
+</form>
+
+
